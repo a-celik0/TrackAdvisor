@@ -1,0 +1,82 @@
+﻿@page
+@model TrackAdvisor.WEB.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!-- Bootstrap container: sayfayı ortalamak için -->
+<div class="container d-flex justify-content-center align-items-center vh-100">
+
+    <!-- Bootstrap card: register kutusu -->
+    <div class="card shadow" style="width:420px; border-radius:15px;">
+
+        <!-- Card header: üstteki mor TrackAdvisor başlığı -->
+        <div class="card-header text-white fw-bold fs-4"
+             style="background-color:#7030a0; border-radius:15px 15px 0 0;">
+            Track<span class="times new roman">Advisor</span>
+        </div>
+
+        <!-- Card body: form alanı -->
+        <div class="card-body">
+
+            <!-- Sayfa başlığı -->
+            <h3 class="fw-bold">Create account</h3>
+
+            <!-- Küçük açıklama -->
+            <p class="text-muted">Join the Fontys TrackAdvisor community</p>
+
+            <!-- Register form -->
+            <form method="post">
+
+                <!-- Email input -->
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email address</label>
+
+                    <!-- asp-for Razor ile Email property'e bağlanır(model binding) -->
+                    <input asp-for="Email" class="form-control" placeholder="you@fontys.nl">
+                </div>
+
+                <!-- Password input -->
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Password</label>
+
+                    <!-- type=password: karakterleri gizler -->
+                    <input asp-for="Password" type="password" class="form-control">
+                </div>
+
+                <!-- Confirm password input -->
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label">Confirm password</label>
+
+                    <input asp-for="ConfirmPassword" type="password" class="form-control">
+                </div>
+
+                <!-- Hata mesajı varsa göster -->
+                @if (!string.IsNullOrEmpty(Model.Message))
+                {
+                    <!-- Bootstrap alert component -->
+                    <div class="alert alert-danger">
+                        @Model.Message
+                    </div>
+                }
+
+                <!-- Register button -->
+                <button type="submit" class="btn btn-outline-secondary w-100 fw-bold">
+                    Create account
+                </button>
+
+            </form>
+
+            <!-- Login sayfasına link -->
+            <p class="text-center mt-3">
+
+                <!-- asp-page Razor routing kullanır -->
+                Already have an account?
+                <a asp-page="/Login">Log in</a>
+
+            </p>
+
+        </div>
+    </div>
+
+</div>
