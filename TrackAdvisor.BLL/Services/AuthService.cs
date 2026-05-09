@@ -11,6 +11,9 @@ namespace TrackAdvisor.BLL.Services
         private readonly AppDbContext _context;
 
         // Dependency Injection: DbContext dışarıdan alınır
+        // "Bana bir AppDbContext ver" diyorsun
+
+        //dependency inversion
         public AuthService(AppDbContext context)
         {
             _context = context;
@@ -46,6 +49,19 @@ namespace TrackAdvisor.BLL.Services
 
             // Kayıt başarılı
             return true;
+        }
+
+        public bool Login(string email, string password)
+        {
+            // Email veya password boş mu kontrol edilir
+            if (email == null || email.Trim() == "" || password == null || password.Trim() == "")
+            {
+                return false;
+            }
+            // Veritabanında email ve password eşleşen kullanıcı var mı kontrol edilir
+            User user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            // Eğer kullanıcı bulunursa login başarılı, bulunmazsa başarısız
+            return user != null;
         }
     }
 }

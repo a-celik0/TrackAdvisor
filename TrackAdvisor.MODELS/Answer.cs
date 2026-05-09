@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace TrackAdvisor.MODELS
 {
-    public class Topic
+    public class Answer
     {
-        public int TopicID { get; set; }
+        public int AnswerID { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public int UserID { get; set; }
 
-        public string Description { get; set; } = string.Empty;
+        public int QuestionID { get; set; }
+
+        public string Content { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

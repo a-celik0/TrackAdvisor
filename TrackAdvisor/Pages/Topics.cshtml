@@ -1,0 +1,14 @@
+﻿@page
+@model TrackAdvisor.WEB.Pages.TopicsModel
+
+<h1>Topics</h1>
+
+@foreach (var topic in Model.Topics)
+{
+    <div>
+        <a href="/TopicDetail/@topic.TopicID">
+            <h3>@topic.Name</h3>
+        </a>
+        <p>@topic.Description</p>
+    </div>
+}

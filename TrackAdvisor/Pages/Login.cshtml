@@ -1,0 +1,62 @@
+﻿@page
+@model TrackAdvisor.WEB.Pages.LoginModel
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-4">
+
+            <div class="card shadow" style="width:420px; border-radius:15px;">
+
+                <div class="card-header text-white fw-bold fs-4"
+                     style="background-color:#7030a0; border-radius:15px 15px 0 0;">
+                    Track<span class="times new roman">Advisor</span>
+                </div>
+
+                <div class="card-body">
+
+                    <!-- Sayfa başlığı -->
+                    <h3 class="fw-bold">Welcome back!</h3>
+
+                    <!-- Küçük açıklama -->
+                    <p class="text-muted">Fontys TrackAdvisor</p>
+
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-secondary w-100 fw-bold">
+                            Login
+                        </button>
+
+                    </form>
+
+                    <p class="text-danger text-center mt-3">
+                        @Model.Message
+                    </p>
+
+                    <p class="text-center mt-3">
+
+                        <!-- asp-page Razor routing kullanır -->
+                        No Account?
+                        <a asp-page="/Register">Register here</a>
+
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
