@@ -1,5 +1,36 @@
 ﻿@page "{id:int}"
 @model TrackAdvisor.WEB.Pages.TopicDetailModel
 
-<h1>@Model.Topic.Name</h1>
-<p>@Model.Topic.Description</p>
+<div style="padding: 20px;">
+
+    <h1>● @Model.Topic.Name</h1>
+    <p>@Model.Topic.Description</p>
+
+    <a href="/ShareExperience?topicId=@Model.Topic.TopicID">
+        <button>+ Share experience</button>
+    </a>
+    <button>+ Ask a question</button>
+
+    <hr />
+
+    <h3>Experiences (@Model.ExperiencePosts.Count)</h3>
+
+    @foreach (var post in Model.ExperiencePosts)
+    {
+        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+            <p>@post.Content</p>
+            <small>@post.CreatedAt</small>
+        </div>
+    }
+
+    <h3>Questions (@Model.Questions.Count)</h3>
+
+    @foreach (var question in Model.Questions)
+    {
+        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+            <p>@question.Content</p>
+            <small>@question.CreatedAt</small>
+        </div>
+    }
+
+</div>
