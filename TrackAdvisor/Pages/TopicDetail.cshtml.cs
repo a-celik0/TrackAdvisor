@@ -14,6 +14,7 @@ namespace TrackAdvisor.WEB.Pages
 
         public List<ExperiencePost> ExperiencePosts { get; set; } = new List<ExperiencePost>();
         public List<Question> Questions { get; set; } = new List<Question>();
+        public List<Answer> Answers { get; set; } = new List<Answer>();
 
         public TopicDetailModel(AppDbContext context)
         {
@@ -25,6 +26,7 @@ namespace TrackAdvisor.WEB.Pages
             Topic = _context.Topics.FirstOrDefault(t => t.TopicID == id);
             ExperiencePosts = _context.ExperiencePosts.Where(e => e.TopicID == id).ToList();
             Questions = _context.Questions.Where(q => q.TopicID == id).ToList();
+            Answers = _context.Answers.ToList();
         }
     }
 }

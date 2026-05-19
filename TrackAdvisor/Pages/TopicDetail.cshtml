@@ -32,6 +32,19 @@
         <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
             <p>@question.Content</p>
             <small>@question.CreatedAt</small>
+
+            <!-- O soruya ait cevaplar -->
+            @foreach (var answer in Model.Answers.Where(a => a.QuestionID == question.QuestionID))
+            {
+                <div style="background: #f9f9f9; padding: 8px; margin: 5px 0;">
+                    <p>@answer.Content</p>
+                    <small>@answer.CreatedAt</small>
+                </div>
+            }
+
+            <a href="/AddAnswer?questionId=@question.QuestionID&topicId=@Model.Topic.TopicID">
+                <button>+ Answer</button>
+            </a>
         </div>
     }
 

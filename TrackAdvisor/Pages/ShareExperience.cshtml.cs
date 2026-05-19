@@ -15,6 +15,7 @@ namespace TrackAdvisor.WEB.Pages
         [BindProperty]
         public int TopicID { get; set; }
 
+        // we don't create a constructor, the system will create it for us and give us the AppDbContext
         public ShareExperienceModel(AppDbContext context)
         {
             _context = context;
