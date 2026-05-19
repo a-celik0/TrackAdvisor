@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TrackAdvisor.BLL.Interfaces;
 using TrackAdvisor.BLL.Services;
 
 namespace TrackAdvisor.WEB.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly AuthService _authService;
-
-        //dependency inversion
-        public LoginModel(AuthService authService)
+        private readonly IAuthService _authService;
+        public LoginModel(IAuthService authService)
         {
             _authService = authService;
         }

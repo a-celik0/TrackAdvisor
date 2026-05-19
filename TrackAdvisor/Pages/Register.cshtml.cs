@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc; // [BindProperty] için gerekli  
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TrackAdvisor.BLL.Interfaces;
 using TrackAdvisor.BLL.Services;
 
 namespace TrackAdvisor.WEB.Pages
@@ -7,9 +8,8 @@ namespace TrackAdvisor.WEB.Pages
     public class RegisterModel : PageModel
     {
         // AuthService ile register iþlemi yapýlýr??
-        private readonly AuthService _authService;
-
-        public RegisterModel(AuthService authService)
+        private readonly IAuthService _authService;
+        public RegisterModel(IAuthService authService)
         {
             _authService = authService;
         }
