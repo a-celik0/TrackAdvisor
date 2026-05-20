@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using TrackAdvisor.BLL.Interfaces;
 using TrackAdvisor.DAL.Data;
 using TrackAdvisor.MODELS;
 
 namespace TrackAdvisor.BLL.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         // Database ile iletişim kurmak için DbContext??
         private readonly AppDbContext _context;
