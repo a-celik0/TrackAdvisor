@@ -1,40 +1,66 @@
-﻿using TrackAdvisor.DAL.Data;
+﻿using TrackAdvisor.MODELS.Interfaces;
 using TrackAdvisor.MODELS;
-using TrackAdvisor.MODELS.Interfaces;
 
-namespace TrackAdvisor.DAL.Repositories
+namespace TrackAdvisor.BLL.Services
 {
-    // Real repository — connected to the database
-    // Implements IUserRepository contract
-    public class UserRepository : IUserRepository
+    public class AuthService : IAuthService
     {
-        // Bridge to connect to the database
-        private readonly AppDbContext _context;
+        // Now using IUserRepository instead of AppDbContext
+        // This allows us to pass a fake repository during testing
+        private readonly IUserRepository _userRepository;
 
-        // Constructor — AppDbContext comes from outside (Dependency Injection)
-        public UserRepository(AppDbContext context)
+        // Constructor — IUserRepository comes from outside (Dependency Injection)
+        public AuthService(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
-        // Find user by email
-        // Returns User if found, null if not found
-        public User FindByEmail(string email)
+        // User registration
+        public bool Register(string email, string password)
         {
-            return _context.Users.FirstOrDefault(u => u.Email == email);
-        }
+            // Check if email or password is empty
+            if (email == null || email.Trim() == "" || password == null || password.Trim() == "")
+            {
+                return false;
+            }
 
-        // Save new user to the database
-        // Returns true if successful
-        public bool Save(User user)
-        {
-            // Add user to the database
-            _context.Users.Add(user);
+            // Check if a user with the same email already exists
+            User existingUser = _userRepository.FindByEmail(email);
+            if (existingUser != null)
+            {
+                return false;
+            }
 
-            // Save changes
-            _context.SaveChanges();
+            // Create new user
+            User newUser = new User();
+            newUser.Email = email;
+            newUser.Password = password;
+
+            // Save user
+            _userRepository.Save(newUser);
 
             return true;
+        }
+
+        public bool Login(string email, string password)
+        {
+            // Check if email or password is empty
+            if (email == null || email.Trim() == "" || password == null || password.Trim() == "")
+            {
+                return false;
+            }
+
+            // Find user by email
+            User user = _userRepository.FindByEmail(email);
+
+            // Return false if user not found
+            if (user == null)
+            {
+                return false;
+            }
+
+            // Check if password is correct
+            return user.Password == password;
         }
     }
 }
