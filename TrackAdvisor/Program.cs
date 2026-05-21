@@ -1,18 +1,20 @@
 using Microsoft.EntityFrameworkCore;
-using TrackAdvisor.BLL.Interfaces;
-using TrackAdvisor.BLL.Services;
 using TrackAdvisor.DAL.Data;
 using TrackAdvisor.MODELS;
+using TrackAdvisor.MODELS.Interfaces;
+using TrackAdvisor.DAL.Repositories;
+using TrackAdvisor.BLL.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
-//SQLite baglantisi
+//SQLite connection
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=trackadvisor.db"));
 
-// AuthService dependency injection ile eklendi
+// AuthService is added with dependency injection 
+builder.Services.AddScoped<IUserRepository, TrackAdvisor.DAL.Repositories.UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();

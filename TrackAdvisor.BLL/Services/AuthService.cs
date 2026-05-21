@@ -1,68 +1,66 @@
-﻿using System;
-using System.Linq;
-using TrackAdvisor.BLL.Interfaces;
-using TrackAdvisor.DAL.Data;
+﻿using TrackAdvisor.MODELS.Interfaces;
 using TrackAdvisor.MODELS;
 
 namespace TrackAdvisor.BLL.Services
 {
     public class AuthService : IAuthService
     {
-        // Database ile iletişim kurmak için DbContext??
-        private readonly AppDbContext _context;
+        // Now using IUserRepository instead of AppDbContext
+        // This allows us to pass a fake repository during testing
+        private readonly IUserRepository _userRepository;
 
-        // Dependency Injection: DbContext dışarıdan alınır
-        // "Bana bir AppDbContext ver" diyorsun
-
-        //dependency inversion
-        public AuthService(AppDbContext context)
+        // Constructor — IUserRepository comes from outside (Dependency Injection)
+        public AuthService(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
-        // Kullanıcı kayıt işlemi
+        // User registration
         public bool Register(string email, string password)
         {
-            // Email veya password boş mu kontrol edilir
+            // Check if email or password is empty
             if (email == null || email.Trim() == "" || password == null || password.Trim() == "")
             {
                 return false;
             }
 
-            // Aynı email ile daha önce kullanıcı var mı kontrol edilir
-            User existingUser = _context.Users.FirstOrDefault(u => u.Email == email);
-
+            // Check if a user with the same email already exists
+            User existingUser = _userRepository.FindByEmail(email);
             if (existingUser != null)
             {
                 return false;
             }
 
-            // Yeni kullanıcı oluşturulur
+            // Create new user
             User newUser = new User();
             newUser.Email = email;
             newUser.Password = password;
 
-            // Kullanıcı database'e eklenir
-            _context.Users.Add(newUser);
+            // Save user
+            _userRepository.Save(newUser);
 
-            // Değişiklikler database'e kaydedilir
-            _context.SaveChanges();
-
-            // Kayıt başarılı
             return true;
         }
 
         public bool Login(string email, string password)
         {
-            // Email veya password boş mu kontrol edilir
+            // Check if email or password is empty
             if (email == null || email.Trim() == "" || password == null || password.Trim() == "")
             {
                 return false;
             }
-            // Veritabanında email ve password eşleşen kullanıcı var mı kontrol edilir
-            User user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
-            // Eğer kullanıcı bulunursa login başarılı, bulunmazsa başarısız
-            return user != null;
+
+            // Find user by email
+            User user = _userRepository.FindByEmail(email);
+
+            // Return false if user not found
+            if (user == null)
+            {
+                return false;
+            }
+
+            // Check if password is correct
+            return user.Password == password;
         }
     }
 }

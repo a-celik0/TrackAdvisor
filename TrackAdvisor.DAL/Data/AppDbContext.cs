@@ -11,6 +11,10 @@ namespace TrackAdvisor.DAL.Data
     public class AppDbContext : DbContext
     {
         //?? ask to martin 
+        public AppDbContext() : base(new DbContextOptions<AppDbContext>())
+        {
+        }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
