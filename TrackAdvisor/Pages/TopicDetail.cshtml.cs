@@ -9,7 +9,7 @@ namespace TrackAdvisor.WEB.Pages
     {
         private readonly AppDbContext _context;
 
-        //Sayfada gosteriecek seyler
+        //things to show in the topic detail page
         public Topic Topic { get; set; }
 
         public List<ExperiencePost> ExperiencePosts { get; set; } = new List<ExperiencePost>();

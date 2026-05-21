@@ -1,13 +1,13 @@
 ﻿using TrackAdvisor.MODELS;
 
-namespace TrackAdvisor.BLL.Interfaces
+namespace TrackAdvisor.MODELS.Interfaces
 {
     public interface IUserRepository
     {
-        // Email ile kullanıcı bul
+        // Find a user by email
         User FindByEmail(string email);
 
-        // Yeni kullanıcı kaydet
+        // Save a new user to the database
         bool Save(User user);
     }
 }

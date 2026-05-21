@@ -1,32 +1,32 @@
-using Microsoft.AspNetCore.Mvc; // [BindProperty] için gerekli  
+using Microsoft.AspNetCore.Mvc; // Need for [BindProperty]
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TrackAdvisor.BLL.Interfaces;
+using TrackAdvisor.MODELS.Interfaces;
 using TrackAdvisor.BLL.Services;
 
 namespace TrackAdvisor.WEB.Pages
 {
     public class RegisterModel : PageModel
     {
-        // AuthService ile register iþlemi yapýlýr??
+        // Register with AuthService
         private readonly IAuthService _authService;
         public RegisterModel(IAuthService authService)
         {
             _authService = authService;
         }
 
-        // Email formdan alýnýr
+        // Getting email from the form
         [BindProperty]
         public string Email { get; set; }
 
-        // Password formdan alýnýr
+        // Getting password from the form
         [BindProperty]
         public string Password { get; set; }
 
-        // Confirm password formdan alýnýr
+        // getting confirm password from the form
         [BindProperty]
         public string ConfirmPassword { get; set; }
 
-        // Kullanýcýya mesaj göstermek için
+        // To show the message to the user
         public string Message { get; set; }
 
         public void OnGet()
@@ -35,14 +35,14 @@ namespace TrackAdvisor.WEB.Pages
 
         public IActionResult OnPost()
         {
-            // Þifreler ayný mý kontrol edilir
+            // Checking if password is same
             if (Password != ConfirmPassword)
             {
                 Message = "Passwords do not match.";
                 return Page();
             }
 
-            // AuthService ile kayýt iþlemi yapýlýr
+            // Register with AuthService
             bool success = _authService.Register(Email, Password);
 
             if (!success)
