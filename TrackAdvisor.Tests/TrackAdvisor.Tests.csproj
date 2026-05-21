@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TrackAdvisor.BLL\TrackAdvisor.BLL.csproj" />
+    <ProjectReference Include="..\TrackAdvisor.MODELS\TrackAdvisor.MODELS.csproj" />
   </ItemGroup>
 
   <ItemGroup>
