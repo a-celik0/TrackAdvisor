@@ -31,7 +31,7 @@ namespace TrackAdvisor.WEB.Pages
             var post = new ExperiencePost();
             post.Content = Content;
             post.TopicID = TopicID;
-            post.UserID = 1; // Þimdilik sabit, sonra cookie'den alacaðýz
+            post.UserID = 1; // Now same for all, will be changed after the cookie
             post.CreatedAt = DateTime.Now;
 
             _context.ExperiencePosts.Add(post);

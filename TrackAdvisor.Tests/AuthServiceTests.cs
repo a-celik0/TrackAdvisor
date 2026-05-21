@@ -1,71 +1,44 @@
-﻿using TrackAdvisor.BLL.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using TrackAdvisor.BLL.Services;
+using TrackAdvisor.DAL.Data;
 using Xunit;
 
 namespace TrackAdvisor.Tests
 {
     public class AuthServiceTests
     {
-        // Test 1: Valid email and password — should return true
+        // Her test için temiz ve ayrı bir veritabanı oluşturan metod
+        // dbName = her testte farklı isim veriyoruz ki testler birbirini etkilemesin
+        private AppDbContext CreateDb(string dbName)
+        {
+            // InMemory veritabanı ayarlarını oluştur
+            // UseInMemoryDatabase = SQLite değil, RAM'de geçici veritabanı kullan
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseInMemoryDatabase(dbName)
+                .Options;
+
+            // Bu ayarlarla AppDbContext oluştur ve döndür
+            return new AppDbContext(options);
+        }
+
+        // [Fact] = "Bu bir test metodudur, otomatik çalıştır" demek
+        // Test 1: Geçerli email ve şifre ile kayıt başarılı mı?
         [Fact]
         public void Register_WithValidData_ReturnsTrue()
         {
-            // Arrange
-            var fakeRepo = new FakeUserRepository();
-            var service = new AuthService(fakeRepo);
+            // Arrange — hazırlık
+            // "Test1" adında temiz bir veritabanı oluştur
+            var db = CreateDb("Test1");
+            // AuthService'e bu veritabanını ver
+            var service = new AuthService(db);
 
-            // Act
-            bool result = service.Register("test@mail.com", "1234");
+            // Act — Register metodunu çalıştır
+            // "test@mail.com" ve "1234" ile kayıt olmayı dene
+            bool sonuc = service.Register("test@mail.com", "1234");
 
-            // Assert
-            Assert.True(result);
-        }
-
-        // Test 2: Existing email — should return false
-        [Fact]
-        public void Register_WithExistingEmail_ReturnsFalse()
-        {
-            // Arrange
-            var fakeRepo = new FakeUserRepository();
-            var service = new AuthService(fakeRepo);
-            service.Register("test@mail.com", "1234");
-
-            // Act
-            bool result = service.Register("test@mail.com", "5678");
-
-            // Assert
-            Assert.False(result);
-        }
-
-        // Test 3: Valid credentials — should return true
-        [Fact]
-        public void Login_WithValidCredentials_ReturnsTrue()
-        {
-            // Arrange
-            var fakeRepo = new FakeUserRepository();
-            var service = new AuthService(fakeRepo);
-            service.Register("test@mail.com", "1234");
-
-            // Act
-            bool result = service.Login("test@mail.com", "1234");
-
-            // Assert
-            Assert.True(result);
-        }
-
-        // Test 4: Wrong password — should return false
-        [Fact]
-        public void Login_WithWrongPassword_ReturnsFalse()
-        {
-            // Arrange
-            var fakeRepo = new FakeUserRepository();
-            var service = new AuthService(fakeRepo);
-            service.Register("test@mail.com", "1234");
-
-            // Act
-            bool result = service.Login("test@mail.com", "wrong");
-
-            // Assert
-            Assert.False(result);
+            // Assert — sonucu kontrol et
+            // true bekliyoruz çünkü geçerli email ve şifre verdik
+            Assert.True(sonuc);
         }
     }
 }

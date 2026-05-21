@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrackAdvisor.BLL.Interfaces
+namespace TrackAdvisor.MODELS.Interfaces
 {
     public interface IAuthService
     {

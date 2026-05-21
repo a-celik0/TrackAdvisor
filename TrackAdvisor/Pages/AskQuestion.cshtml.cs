@@ -7,57 +7,57 @@ namespace TrackAdvisor.WEB.Pages
 {
     public class AskQuestionModel : PageModel
     {
-        // Veritabanýna baðlanmak için köprü
+        // A bridge to the database
         private readonly AppDbContext _context;
 
-        // Formdan gelecek soru metni
+        // Question content coming from the form
         [BindProperty]
         public string Content { get; set; } = string.Empty;
 
-        // Formdan gelecek topic ID'si (hangi topic'e ait bu soru?)
+        // TopicId from form (which topic does this question belong to?)
         [BindProperty]
         public int TopicID { get; set; }
 
-        // Constructor — sistem AppDbContext'i veriyor, biz kaydediyoruz
+        // Constructor - system gives us AppDbContext, we save it
         public AskQuestionModel(AppDbContext context)
         {
             _context = context;
         }
 
-        // Sayfa açýlýnca çalýþýr
-        // topicId ? URL'den geliyor (/AskQuestion?topicId=1)
+        // It works when the page is loaded, it gets the topicId from the URL and saves it to TopicID property
         public void OnGet(int topicId)
         {
-            // URL'den gelen topicId'yi TopicID'ye kaydediyoruz
-            // Çünkü form gönderilince hangi topic'e ait olduðunu bilmemiz lazým
+            // we save the topicId from the URL to TopicID property
+            // because when the form is submitted, we need to know which topic it belongs to
+
             TopicID = topicId;
         }
 
-        // Form gönderilince çalýþýr
+        // It works when the form is submitted, it creates a new question and saves it to the database
         public IActionResult OnPost()
         {
-            // Yeni bir soru nesnesi oluþtur
+            // Crate a new question object
             var question = new Question();
 
-            // Formdan gelen metni kaydet
+            // Save the content from the form
             question.Content = Content;
 
-            // Hangi topic'e ait olduðunu kaydet
+            // Save the topicId to the question
             question.TopicID = TopicID;
 
-            // Þimdilik sabit, sonra cookie'den alacaðýz
+            // Now same for all, will be changed after the cookie
             question.UserID = 1;
 
-            // Þu anki zamaný kaydet
+            // Save the current time to the question
             question.CreatedAt = DateTime.Now;
 
-            // Soruyu veritabanýna ekle
+            // Add the question to the database
             _context.Questions.Add(question);
 
-            // Veritabanýna kaydet
+            // save the changes to the database
             _context.SaveChanges();
 
-            // TopicDetail sayfasýna geri dön
+            // Back to the topic detail page, we need to give the topicId to show the right topic
             return RedirectToPage("/TopicDetail", new { id = TopicID });
         }
     }

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TrackAdvisor.BLL.Interfaces;
-using TrackAdvisor.BLL.Services;
+using TrackAdvisor.MODELS.Interfaces;
 
 namespace TrackAdvisor.WEB.Pages
 {
