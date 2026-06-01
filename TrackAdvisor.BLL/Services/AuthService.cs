@@ -3,6 +3,7 @@ using TrackAdvisor.MODELS;
 
 namespace TrackAdvisor.BLL.Services
 {
+    //sozlesme implementasyonu
     public class AuthService : IAuthService
     {
         // Now using IUserRepository instead of AppDbContext
@@ -10,6 +11,8 @@ namespace TrackAdvisor.BLL.Services
         private readonly IUserRepository _userRepository;
 
         // Constructor — IUserRepository comes from outside (Dependency Injection)
+        // "Bana bir repo ver, onsuz çalışamam"
+        //"Bana IUserRepository tipinde bir şey ver"
         public AuthService(IUserRepository userRepository)
         {
             _userRepository = userRepository;

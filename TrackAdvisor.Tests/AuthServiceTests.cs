@@ -9,14 +9,14 @@ namespace TrackAdvisor.Tests
         [Fact]
         public void Register_WithValidData_ReturnsTrue()
         {
-            // Arrange
+            // Arrange — hazırlık
             var fakeRepo = new FakeUserRepository();
             var service = new AuthService(fakeRepo);
 
-            // Act
+            // Act — çalıştır
             bool result = service.Register("test@mail.com", "1234");
 
-            // Assert
+            // Assert — kontrol et
             Assert.True(result);
         }
 

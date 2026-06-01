@@ -5,7 +5,7 @@ using TrackAdvisor.MODELS.Interfaces;
 namespace TrackAdvisor.DAL.Repositories
 {
     // Real repository — connected to the database
-    // Implements IUserRepository contract
+    // Implements IUserRepository : signed the contract
     public class UserRepository : IUserRepository
     {
         // Bridge to connect to the database

@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TrackAdvisor.DAL.Data;
 using TrackAdvisor.MODELS;
 using TrackAdvisor.MODELS.Interfaces;
@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=trackadvisor.db"));
 
 // AuthService is added with dependency injection 
+//"IUserRepository isteyene → UserRepository ver"
 builder.Services.AddScoped<IUserRepository, TrackAdvisor.DAL.Repositories.UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 

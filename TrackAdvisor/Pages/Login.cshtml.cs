@@ -7,6 +7,7 @@ namespace TrackAdvisor.WEB.Pages
     public class LoginModel : PageModel
     {
         private readonly IAuthService _authService;
+
         public LoginModel(IAuthService authService)
         {
             _authService = authService;
