@@ -10,7 +10,8 @@ namespace TrackAdvisor.WEB.Pages
         private readonly AppDbContext _context;
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
-        
+
+        //we save context from AppDbContext as _context to use it in the OnGet method
         public TopicsModel(AppDbContext context)
         {
             _context = context;
