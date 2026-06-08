@@ -15,5 +15,10 @@ namespace TrackAdvisor.MODELS
         public string Description { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        
+        public bool IsDeleted { get; set; } = false;
+
+        public DateTime? DeletedAt { get; set; } //? means it can be null,
+                                                 //because when the topic is not deleted, there is no deleted time
     }
 }

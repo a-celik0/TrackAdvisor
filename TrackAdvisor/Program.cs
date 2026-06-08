@@ -38,13 +38,7 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
 
-    if (!db.Topics.Any())
-    {
-        db.Topics.Add(new Topic { Name = "Software Development", Description = "Software development track" });
-        db.Topics.Add(new Topic { Name = "Cyber Security", Description = "Cyber security track" });
-        db.Topics.Add(new Topic { Name = "Business IT", Description = "Business IT track" });
-        db.SaveChanges();
-    }
+    var topicRepo = new TopicRepository(db);
+    topicRepo.InitializeTopics();
 }
-
 app.Run();
