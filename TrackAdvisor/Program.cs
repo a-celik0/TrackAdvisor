@@ -17,6 +17,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, TrackAdvisor.DAL.Repositories.UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+builder.Services.AddScoped<TopicService>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
