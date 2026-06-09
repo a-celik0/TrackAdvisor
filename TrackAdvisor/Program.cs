@@ -17,6 +17,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, TrackAdvisor.DAL.Repositories.UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+builder.Services.AddScoped<TopicService>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -33,18 +36,13 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
+//topic sql
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
 
-    if (!db.Topics.Any())
-    {
-        db.Topics.Add(new Topic { Name = "Software Development", Description = "Software development track" });
-        db.Topics.Add(new Topic { Name = "Cyber Security", Description = "Cyber security track" });
-        db.Topics.Add(new Topic { Name = "Business IT", Description = "Business IT track" });
-        db.SaveChanges();
-    }
+    var topicRepo = new TopicRepository(db);
+    topicRepo.InitializeTopics();
 }
-
 app.Run();

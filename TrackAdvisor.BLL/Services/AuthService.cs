@@ -62,5 +62,11 @@ namespace TrackAdvisor.BLL.Services
             // Check if password is correct
             return user.Password == password;
         }
+
+        // Get user by email — used after login to read UserID and Role
+        public User GetUserByEmail(string email)
+        {
+            return _userRepository.FindByEmail(email);
+        }
     }
 }

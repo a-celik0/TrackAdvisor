@@ -46,7 +46,7 @@ namespace TrackAdvisor.WEB.Pages
             question.TopicID = TopicID;
 
             // Now same for all, will be changed after the cookie
-            question.UserID = 1;
+            question.UserID = int.Parse(Request.Cookies["UserID"]);
 
             // Save the current time to the question
             question.CreatedAt = DateTime.Now;

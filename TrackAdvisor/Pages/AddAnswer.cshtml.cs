@@ -40,7 +40,8 @@ namespace TrackAdvisor.WEB.Pages
             // Check which question this answer belongs to
             answer.QuestionID = QuestionID;
 
-            answer.UserID = 1;
+            //int.Parse: change string to integer
+            answer.UserID = int.Parse(Request.Cookies["UserID"]);
 
             answer.CreatedAt = DateTime.Now;
 
