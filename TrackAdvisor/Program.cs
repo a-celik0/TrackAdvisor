@@ -33,6 +33,7 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
+//topic sql
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();

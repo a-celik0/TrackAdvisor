@@ -29,7 +29,18 @@ namespace TrackAdvisor.WEB.Pages
 
             if (success)
             {
-                Message = "Login successful.";
+                // Get the user from the database
+                var user = _authService.GetUserByEmail(Email);
+
+                // Save UserID and Role in cookies
+                var options = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddHours(2)
+                };
+
+                Response.Cookies.Append("UserID", user.UserID.ToString(), options);
+                Response.Cookies.Append("UserRole", user.Role, options);
+
                 return RedirectToPage("/Index");
             }
             else
