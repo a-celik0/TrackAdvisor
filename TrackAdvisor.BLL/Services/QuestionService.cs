@@ -21,7 +21,7 @@ namespace TrackAdvisor.BLL.Services
         {
             if (string.IsNullOrWhiteSpace(content))
                 return false;
-            var question = new MODELS.Question
+            var question = new Question
             {
                 Content = content,
                 TopicID = topicId,

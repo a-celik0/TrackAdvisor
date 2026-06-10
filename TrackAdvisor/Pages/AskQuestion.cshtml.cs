@@ -25,12 +25,19 @@ namespace TrackAdvisor.WEB.Pages
         }
 
         // It works when the page is loaded, it gets the topicId from the URL and saves it to TopicID property
-        public void OnGet(int topicId)
+        public IActionResult OnGet(int topicId)
         {
             // we save the topicId from the URL to TopicID property
             // because when the form is submitted, we need to know which topic it belongs to
+            // Check if user is logged in
+            if (Request.Cookies["UserID"] == null)
+            {
+                return RedirectToPage("/Login");
+            }
 
             TopicID = topicId;
+            return Page();
+
         }
 
         // It works when the form is submitted, it creates a new question and saves it to the database
