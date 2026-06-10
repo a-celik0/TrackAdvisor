@@ -17,16 +17,11 @@ namespace TrackAdvisor.BLL.Services
             _questionRepository = questionRepository;
         }
 
-        public bool AskQuestion(string content, int topicId, int userId)
+        public bool AskQuestion(Question question)
         {
-            if (string.IsNullOrWhiteSpace(content))
+            if (question == null || string.IsNullOrWhiteSpace(question.Content))
                 return false;
-            var question = new Question
-            {
-                Content = content,
-                TopicID = topicId,
-                UserID = userId //userid is for now hardcoded, but in the future it will be taken from the logged-in user context
-            };
+
             return _questionRepository.Save(question);
         }
 

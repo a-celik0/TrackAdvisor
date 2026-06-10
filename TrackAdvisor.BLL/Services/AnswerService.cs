@@ -17,16 +17,11 @@ namespace TrackAdvisor.BLL.Services
             _answerRepository = answerRepository;
        }
 
-        public bool SubmitAnswer(string content, int questionId, int userId)
+        public bool SubmitAnswer(Answer answer)
         {
-            if (string.IsNullOrWhiteSpace(content))
+            if (answer == null || string.IsNullOrWhiteSpace(answer.Content))
                 return false;
-            var answer = new Answer
-            {
-                Content = content,
-                QuestionID = questionId,
-                UserID = userId,
-            };
+
             return _answerRepository.Save(answer);
         }
 
