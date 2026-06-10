@@ -10,6 +10,6 @@ namespace TrackAdvisor.MODELS.Interfaces
     public interface IAnswerRepository
     {
         bool Save(Answer answer);  
-        List<Answer> FindByQuestionId(int questionId);
+        List<Answer> FindByQuestionID(int questionId);
     }
 }

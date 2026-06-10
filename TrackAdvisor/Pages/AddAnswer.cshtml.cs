@@ -24,10 +24,17 @@ namespace TrackAdvisor.WEB.Pages
             _context = context;
         }
 
-        public void OnGet(int questionId, int topicId)
+        public IActionResult OnGet(int questionId, int topicId)
         {
+            if (Request.Cookies["UserID"] == null)
+            {
+                return RedirectToPage("/Login");
+            }
+
             TopicID = topicId;
             QuestionID = questionId;
+
+            return Page();
         }
 
         public IActionResult OnPost()

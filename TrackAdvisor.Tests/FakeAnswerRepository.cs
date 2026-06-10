@@ -18,7 +18,7 @@ namespace TrackAdvisor.Tests
             return true;
         }
 
-        public List<Answer> FindByQuestionId(int questionId)
+        public List<Answer> FindByQuestionID(int questionId)
         {
             return _answers.Where(a => a.QuestionID == questionId).ToList();
         }

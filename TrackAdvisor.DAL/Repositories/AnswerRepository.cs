@@ -36,7 +36,7 @@ namespace TrackAdvisor.DAL.Repositories
         }
 
         // Get all answers belonging to a specific question
-        public List<Answer> FindByQuestionId(int questionId)
+        public List<Answer> FindByQuestionID(int questionId)
         {
             // Return all answers where QuestionID matches
             return _context.Answers
