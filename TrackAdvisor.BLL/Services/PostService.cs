@@ -33,7 +33,7 @@ namespace TrackAdvisor.BLL.Services
             {
                 return new List<ExperiencePost>();
             }
-            return _postRepository.FindByTopicId(topicId);
+            return _postRepository.FindByTopicID(topicId);
         }
         public void DeletePost(int postId)
         {

@@ -8,17 +8,12 @@ using TrackAdvisor.MODELS;
 
 namespace TrackAdvisor.DAL.Data
 {
+
     public class AppDbContext : DbContext
     {
-        //?? ask to martin 
-        public AppDbContext() : base(new DbContextOptions<AppDbContext>())
-        {
-        }
-
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<Topic> Topics { get; set; }
