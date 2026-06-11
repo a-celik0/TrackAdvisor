@@ -23,7 +23,7 @@ namespace TrackAdvisor.DAL.Repositories
             _context.SaveChanges();
             return true;
         }
-        public List<ExperiencePost> FindByTopicId(int topicId)
+        public List<ExperiencePost> FindByTopicID(int topicId)
         {
             return _context.ExperiencePosts
                 .Where(p => p.TopicID == topicId)

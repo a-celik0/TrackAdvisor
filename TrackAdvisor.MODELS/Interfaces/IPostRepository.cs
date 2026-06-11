@@ -9,7 +9,7 @@ namespace TrackAdvisor.MODELS.Interfaces
     public interface IPostRepository
     {
         bool Save(ExperiencePost post);
-        List<ExperiencePost> FindByTopicId(int topicId);
+        List<ExperiencePost> FindByTopicID(int topicId);
          void Delete(int id);
     }
 }
