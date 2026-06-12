@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TrackAdvisor.BLL.Services;
 using TrackAdvisor.DAL.Data;
 using TrackAdvisor.MODELS;
 
@@ -7,7 +8,7 @@ namespace TrackAdvisor.WEB.Pages
 {
     public class ShareExperienceModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly PostService _postService;
 
         [BindProperty]
         public string Content { get; set; } = string.Empty;
@@ -16,9 +17,9 @@ namespace TrackAdvisor.WEB.Pages
         public int TopicID { get; set; }
 
         // we don't create a constructor, the system will create it for us and give us the AppDbContext
-        public ShareExperienceModel(AppDbContext context)
+        public ShareExperienceModel(PostService postService)
         {
-            _context = context;
+            _postService = postService;
         }
 
         public IActionResult OnGet(int topicId)
@@ -41,8 +42,7 @@ namespace TrackAdvisor.WEB.Pages
             post.UserID = int.Parse(Request.Cookies["UserID"]);
             post.CreatedAt = DateTime.Now;
 
-            _context.ExperiencePosts.Add(post);
-            _context.SaveChanges();
+            _postService.CreatePost(post);
 
             return RedirectToPage("/TopicDetail", new { id = TopicID });
         }
