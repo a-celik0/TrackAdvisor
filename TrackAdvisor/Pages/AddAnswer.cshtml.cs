@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TrackAdvisor.BLL.Services;
 using TrackAdvisor.DAL.Data;
 using TrackAdvisor.MODELS;
 
@@ -7,7 +8,7 @@ namespace TrackAdvisor.WEB.Pages
 {
     public class AddAnswerModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly AnswerService _answerService;
 
         // The question content coming from the form
         [BindProperty]
@@ -19,9 +20,9 @@ namespace TrackAdvisor.WEB.Pages
         [BindProperty]
         public int TopicID { get; set; }
 
-        public AddAnswerModel(AppDbContext context)
+        public AddAnswerModel(AnswerService answerService)
         {
-            _context = context;
+            _answerService = answerService;
         }
 
         public IActionResult OnGet(int questionId, int topicId)
@@ -52,9 +53,7 @@ namespace TrackAdvisor.WEB.Pages
 
             answer.CreatedAt = DateTime.Now;
 
-            _context.Answers.Add(answer);
-
-            _context.SaveChanges();
+           _answerService.SubmitAnswer(answer);
 
             return RedirectToPage("/TopicDetail", new { id = TopicID });
         }

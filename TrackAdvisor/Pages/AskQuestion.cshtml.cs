@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TrackAdvisor.DAL.Data;
+using TrackAdvisor.BLL.Services;
 using TrackAdvisor.MODELS;
 
 namespace TrackAdvisor.WEB.Pages
 {
     public class AskQuestionModel : PageModel
     {
-        // A bridge to the database
-        private readonly AppDbContext _context;
+        // Using QuestionService instead of AppDbContext
+        private readonly QuestionService _questionService;
 
         // Question content coming from the form
         [BindProperty]
@@ -18,32 +18,31 @@ namespace TrackAdvisor.WEB.Pages
         [BindProperty]
         public int TopicID { get; set; }
 
-        // Constructor - system gives us AppDbContext, we save it
-        public AskQuestionModel(AppDbContext context)
+        // Constructor — QuestionService comes from outside (Dependency Injection)
+        public AskQuestionModel(QuestionService questionService)
         {
-            _context = context;
+            _questionService = questionService;
         }
 
-        // It works when the page is loaded, it gets the topicId from the URL and saves it to TopicID property
+        // Runs when the page is loaded
+        // Gets the topicId from the URL and saves it to TopicID property
         public IActionResult OnGet(int topicId)
         {
-            // we save the topicId from the URL to TopicID property
-            // because when the form is submitted, we need to know which topic it belongs to
             // Check if user is logged in
             if (Request.Cookies["UserID"] == null)
             {
                 return RedirectToPage("/Login");
             }
 
+            // Save the topicId from the URL
             TopicID = topicId;
             return Page();
-
         }
 
-        // It works when the form is submitted, it creates a new question and saves it to the database
+        // Runs when the form is submitted
         public IActionResult OnPost()
         {
-            // Crate a new question object
+            // Create a new question object
             var question = new Question();
 
             // Save the content from the form
@@ -52,19 +51,16 @@ namespace TrackAdvisor.WEB.Pages
             // Save the topicId to the question
             question.TopicID = TopicID;
 
-            // Now same for all, will be changed after the cookie
+            // Get UserID from cookie
             question.UserID = int.Parse(Request.Cookies["UserID"]);
 
-            // Save the current time to the question
+            // Save the current time
             question.CreatedAt = DateTime.Now;
 
-            // Add the question to the database
-            _context.Questions.Add(question);
+            // Save question using QuestionService
+            _questionService.AskQuestion(question);
 
-            // save the changes to the database
-            _context.SaveChanges();
-
-            // Back to the topic detail page, we need to give the topicId to show the right topic
+            // Go back to the topic detail page
             return RedirectToPage("/TopicDetail", new { id = TopicID });
         }
     }
