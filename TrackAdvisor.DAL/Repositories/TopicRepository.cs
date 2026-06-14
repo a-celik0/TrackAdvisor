@@ -84,5 +84,13 @@ namespace TrackAdvisor.DAL.Repositories
                 id
             );
         }
+        public void Add(string name, string description)
+        {
+            // Insert a new topic using raw SQL
+            _context.Database.ExecuteSqlRaw(
+                "INSERT INTO Topics (Name, Description, CreatedAt, IsDeleted) VALUES ({0}, {1}, datetime('now'), 0)",
+                name, description
+            );
+        }
     }
 }

@@ -36,5 +36,9 @@ namespace TrackAdvisor.BLL.Services
         {
             _topicRepository.SoftDelete(id);
         }
+        public void AddTopic(string name, string description)
+        {
+            _topicRepository.Add(name, description);
+        }
     }
 }
