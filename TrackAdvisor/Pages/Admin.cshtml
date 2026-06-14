@@ -1,0 +1,34 @@
+﻿@page
+@model TrackAdvisor.WEB.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<h1>Admin Panel</h1>
+
+<h2>Topics</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var topic in Model.Topics)
+        {
+            <tr>
+                <td>@topic.Name</td>
+                <td>@topic.Description</td>
+                <td>@(topic.IsDeleted ? "Deleted" : "Active")</td>
+                <td>
+                    <a href="/EditTopic?id=@topic.TopicID" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/DeleteTopic?id=@topic.TopicID" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

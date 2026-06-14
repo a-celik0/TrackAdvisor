@@ -50,6 +50,13 @@
                             <a class="nav-link" asp-area="" asp-page="/Topics">Topics</a>
                         </li>
 
+                        @if (Context.Request.Cookies["UserRole"] == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Admin">Admin</a>
+                            </li>
+                        }
+
                         @if (Context.Request.Cookies["UserID"] != null)
                         {
                             <!-- Kullanıcı giriş yapmış — sadece Logout göster -->
