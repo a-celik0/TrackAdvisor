@@ -12,5 +12,7 @@ namespace TrackAdvisor.MODELS.Interfaces
 
         Topic FindByID(int id);
 
+        void Update(int id, string name, string description);
+
     }
 }

@@ -67,6 +67,13 @@ namespace TrackAdvisor.DAL.Repositories
 
     ");
         }
-
+        public void Update(int id, string name, string description)
+        {
+            // Update topic name and description using raw SQL
+            _context.Database.ExecuteSqlRaw(
+                "UPDATE Topics SET Name = {0}, Description = {1} WHERE TopicID = {2}",
+                name, description, id
+            );
+        }
     }
 }

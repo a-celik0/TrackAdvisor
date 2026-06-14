@@ -26,5 +26,10 @@ namespace TrackAdvisor.BLL.Services
         {
             return _topicRepository.FindByID(id);
         }
+
+        public void UpdateTopic(int id, string name, string description)
+        {
+            _topicRepository.Update(id, name, description);
+        }
     }
 }
