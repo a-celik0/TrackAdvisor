@@ -75,5 +75,14 @@ namespace TrackAdvisor.DAL.Repositories
                 name, description, id
             );
         }
+
+        public void SoftDelete(int id)
+        {
+            // Set IsDeleted to 1 and save the deletion time
+            _context.Database.ExecuteSqlRaw(
+                "UPDATE Topics SET IsDeleted = 1, DeletedAt = datetime('now') WHERE TopicID = {0}",
+                id
+            );
+        }
     }
 }
