@@ -21,10 +21,31 @@ namespace TrackAdvisor.BLL.Services
         {
             return _topicRepository.FindAll();
         }
-
+        public List<Topic> GetAllTopicsIncludingDeleted()
+        {
+            return _topicRepository.FindAllIncludingDeleted();
+        }
         public Topic GetTopicByID(int id)
         {
             return _topicRepository.FindByID(id);
+        }
+
+        public void UpdateTopic(int id, string name, string description)
+        {
+            _topicRepository.Update(id, name, description);
+        }
+
+        public void SoftDeleteTopic(int id)
+        {
+            _topicRepository.SoftDelete(id);
+        }
+        public void AddTopic(string name, string description)
+        {
+            _topicRepository.Add(name, description);
+        }
+        public void RestoreTopic(int id)
+        {
+            _topicRepository.Restore(id);
         }
     }
 }

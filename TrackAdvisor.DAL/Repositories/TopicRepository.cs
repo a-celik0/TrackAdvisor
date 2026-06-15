@@ -23,6 +23,13 @@ namespace TrackAdvisor.DAL.Repositories
 
         public List<Topic> FindAll()
         {
+            // Only return topics that are not deleted
+            return _context.Topics.FromSqlRaw("SELECT * FROM Topics WHERE IsDeleted = 0").ToList();
+        }
+
+        public List<Topic> FindAllIncludingDeleted()
+        {
+            // Return all topics including deleted ones
             return _context.Topics.FromSqlRaw("SELECT * FROM Topics").ToList();
         }
 
@@ -67,6 +74,38 @@ namespace TrackAdvisor.DAL.Repositories
 
     ");
         }
+        public void Update(int id, string name, string description)
+        {
+            // Update topic name and description using raw SQL
+            _context.Database.ExecuteSqlRaw(
+                "UPDATE Topics SET Name = {0}, Description = {1} WHERE TopicID = {2}",
+                name, description, id
+            );
+        }
 
+        public void SoftDelete(int id)
+        {
+            // Set IsDeleted to 1 and save the deletion time
+            _context.Database.ExecuteSqlRaw(
+                "UPDATE Topics SET IsDeleted = 1, DeletedAt = datetime('now') WHERE TopicID = {0}",
+                id
+            );
+        }
+        public void Add(string name, string description)
+        {
+            // Insert a new topic using raw SQL
+            _context.Database.ExecuteSqlRaw(
+                "INSERT INTO Topics (Name, Description, CreatedAt, IsDeleted) VALUES ({0}, {1}, datetime('now'), 0)",
+                name, description
+            );
+        }
+        public void Restore(int id)
+        {
+            // Restore the topic by setting IsDeleted to 0 and clearing the deletion time
+            _context.Database.ExecuteSqlRaw(
+                "UPDATE Topics SET IsDeleted = 0, DeletedAt = NULL WHERE TopicID = {0}",
+                id
+            );
+        }
     }
 }
