@@ -19,7 +19,12 @@ namespace TrackAdvisor.BLL.Services
 
         public bool SubmitAnswer(Answer answer)
         {
-            if (answer == null || string.IsNullOrWhiteSpace(answer.Content))
+            // If answer object is null, throw an exception
+            if (answer == null)
+                throw new ArgumentNullException(nameof(answer));
+
+            // If content is empty or whitespace, return false
+            if (string.IsNullOrWhiteSpace(answer.Content))
                 return false;
 
             return _answerRepository.Save(answer);

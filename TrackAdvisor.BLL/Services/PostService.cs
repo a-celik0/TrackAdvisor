@@ -19,12 +19,15 @@ namespace TrackAdvisor.BLL.Services
 
         public bool CreatePost(ExperiencePost post)
         {
-            if (post == null || string.IsNullOrWhiteSpace(post.Content) || post.TopicID <= 0)
-            {
+            // If post object is null, throw an exception
+            if (post == null)
+                throw new ArgumentNullException(nameof(post));
+
+            // If content is empty or whitespace, return false
+            if (string.IsNullOrWhiteSpace(post.Content))
                 return false;
-            }
-            _postRepository.Save(post);
-            return true;
+
+            return _postRepository.Save(post);
         }
 
         public List<ExperiencePost> GetPostsByTopic(int topicId)

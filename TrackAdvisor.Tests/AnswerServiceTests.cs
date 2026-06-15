@@ -59,5 +59,33 @@ namespace TrackAdvisor.Tests
                 Assert.Contains(answers, a => a.Content == "TrackAdvisor is a platform for sharing experiences.");
                 Assert.Contains(answers, a => a.Content == "You can ask questions and get answers from the community.");
             }
+
+            // Test 4: Null answer object — should throw ArgumentNullException
+            [Fact]
+            public void SubmitAnswer_WithNullAnswer_ThrowsException()
+            {
+            // Arrange
+            var fakeRepo = new FakeAnswerRepository();
+            var service = new AnswerService(fakeRepo);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => service.SubmitAnswer(null));
+            }
+
+            // Test 5: Answers from different question should not be returned
+            [Fact]
+            public void GetAnswersByQuestion_WithDifferentQuestionId_ReturnsEmpty()
+            {
+            // Arrange
+            var fakeRepo = new FakeAnswerRepository();
+            var service = new AnswerService(fakeRepo);
+            service.SubmitAnswer(new Answer { Content = "This is an answer.", QuestionID = 1, UserID = 1 });
+
+            // Act
+            var answers = service.GetByQuestion(2);
+
+            // Assert
+            Assert.Empty(answers);
+            }
         }
     }
