@@ -72,5 +72,48 @@ namespace TrackAdvisor.Tests
             // Assert
             Assert.False(result);
         }
+
+        //Test 5 : Null email register
+        [Fact]
+        public void Register_WithNullEmail_ReturnsFalse()
+        {
+            // Arrange
+            var fakeRepo = new FakeUserRepository();
+            var service = new AuthService(fakeRepo);
+            // Act
+            bool result = service.Register(null, "1234");
+            // Assert
+            Assert.False(result);
+        }
+
+        // Test 6: Null password register — should return false
+        [Fact]
+        public void Register_WithNullPassword_ReturnsFalse()
+        {
+            // Arrange
+            var fakeRepo = new FakeUserRepository();
+            var service = new AuthService(fakeRepo);
+
+            // Act
+            bool result = service.Register("test@mail.com", null);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        // Test 7: Null email login — should return false
+        [Fact]
+        public void Login_WithNullEmail_ReturnsFalse()
+        {
+            // Arrange
+            var fakeRepo = new FakeUserRepository();
+            var service = new AuthService(fakeRepo);
+
+            // Act
+            bool result = service.Login(null, "1234");
+
+            // Assert
+            Assert.False(result);
+        }
     }
 }

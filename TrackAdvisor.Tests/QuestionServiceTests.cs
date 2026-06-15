@@ -73,5 +73,33 @@ namespace TrackAdvisor.Tests
             Assert.Contains(questions, q => q.Content == "What is TrackAdvisor?");
             Assert.Contains(questions, q => q.Content == "How to use TrackAdvisor?");
         }
+
+        // Test 4: Null question object — should throw ArgumentNullException
+        [Fact]
+        public void AskQuestion_WithNullQuestion_ThrowsException()
+        {
+            // Arrange
+            var fakeRepo = new FakeQuestionRepository();
+            var service = new QuestionService(fakeRepo);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => service.AskQuestion(null));
+        }
+
+        // Test 5: Questions from different topic should not be returned
+        [Fact]
+        public void GetQuestionsByTopic_WithDifferentTopicId_ReturnsEmpty()
+        {
+            // Arrange
+            var fakeRepo = new FakeQuestionRepository();
+            var service = new QuestionService(fakeRepo);
+            service.AskQuestion(new Question { Content = "What is TrackAdvisor?", TopicID = 1, UserID = 1 });
+
+            // Act
+            var questions = service.GetQuestionsByTopic(2);
+
+            // Assert
+            Assert.Empty(questions);
+        }
     }
 }

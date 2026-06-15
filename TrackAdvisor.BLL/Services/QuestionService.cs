@@ -19,9 +19,16 @@ namespace TrackAdvisor.BLL.Services
 
         public bool AskQuestion(Question question)
         {
-            if (question == null || string.IsNullOrWhiteSpace(question.Content))
+            // If question object is null, throw an exception
+            // This prevents a NullReferenceException later
+            if (question == null)
+                throw new ArgumentNullException(nameof(question));
+
+            // If content is empty or whitespace, return false
+            if (string.IsNullOrWhiteSpace(question.Content))
                 return false;
 
+            // Save the question to the database
             return _questionRepository.Save(question);
         }
 

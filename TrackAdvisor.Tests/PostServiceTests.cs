@@ -68,5 +68,33 @@ namespace TrackAdvisor.Tests
             // Assert
             Assert.NotEmpty(posts);
         }
+
+        // Test 4: Null post object — should throw ArgumentNullException
+        [Fact]
+        public void CreatePost_WithNullPost_ThrowsException()
+        {
+            // Arrange
+            var fakeRepo = new FakePostRepository();
+            var service = new PostService(fakeRepo);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => service.CreatePost(null));
+        }
+
+        // Test 5: Posts from different topic should not be returned
+        [Fact]
+        public void GetPostsByTopic_WithDifferentTopicId_ReturnsEmpty()
+        {
+            // Arrange
+            var fakeRepo = new FakePostRepository();
+            var service = new PostService(fakeRepo);
+            service.CreatePost(new ExperiencePost { Content = "Great track!", TopicID = 1, UserID = 1 });
+
+            // Act
+            var posts = service.GetPostsByTopic(2);
+
+            // Assert
+            Assert.Empty(posts);
+        }
     }
 }
