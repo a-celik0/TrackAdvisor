@@ -31,7 +31,7 @@ namespace TrackAdvisor.WEB.Pages
             }
 
             // Get all topics including deleted ones
-            Topics = _topicService.GetAllTopics();
+            Topics = _topicService.GetAllTopicsIncludingDeleted();
             return Page();
         }
     }

@@ -23,6 +23,13 @@ namespace TrackAdvisor.DAL.Repositories
 
         public List<Topic> FindAll()
         {
+            // Only return topics that are not deleted
+            return _context.Topics.FromSqlRaw("SELECT * FROM Topics WHERE IsDeleted = 0").ToList();
+        }
+
+        public List<Topic> FindAllIncludingDeleted()
+        {
+            // Return all topics including deleted ones
             return _context.Topics.FromSqlRaw("SELECT * FROM Topics").ToList();
         }
 

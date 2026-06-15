@@ -21,7 +21,10 @@ namespace TrackAdvisor.BLL.Services
         {
             return _topicRepository.FindAll();
         }
-
+        public List<Topic> GetAllTopicsIncludingDeleted()
+        {
+            return _topicRepository.FindAllIncludingDeleted();
+        }
         public Topic GetTopicByID(int id)
         {
             return _topicRepository.FindByID(id);
@@ -40,5 +43,6 @@ namespace TrackAdvisor.BLL.Services
         {
             _topicRepository.Add(name, description);
         }
+
     }
 }
