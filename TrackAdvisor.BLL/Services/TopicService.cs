@@ -43,6 +43,9 @@ namespace TrackAdvisor.BLL.Services
         {
             _topicRepository.Add(name, description);
         }
-
+        public void RestoreTopic(int id)
+        {
+            _topicRepository.Restore(id);
+        }
     }
 }

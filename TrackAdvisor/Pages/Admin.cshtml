@@ -26,8 +26,8 @@
                 <td>@topic.Name</td>
                 <td>@topic.Description</td>
                 <td>@(topic.IsDeleted ? "Deleted" : "Active")</td>
-                <td>
-                    <a href="/EditTopic?id=@topic.TopicID" class="btn btn-warning btn-sm">Edit</a>
+                <td style="white-space: nowrap;">
+                    <a href="/EditTopic?id=@topic.TopicID" class="btn btn-warning btn-sm me-2">Edit</a>
                     <a href="/DeleteTopic?id=@topic.TopicID" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>

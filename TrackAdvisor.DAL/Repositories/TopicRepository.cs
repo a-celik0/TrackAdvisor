@@ -99,5 +99,13 @@ namespace TrackAdvisor.DAL.Repositories
                 name, description
             );
         }
+        public void Restore(int id)
+        {
+            // Restore the topic by setting IsDeleted to 0 and clearing the deletion time
+            _context.Database.ExecuteSqlRaw(
+                "UPDATE Topics SET IsDeleted = 0, DeletedAt = NULL WHERE TopicID = {0}",
+                id
+            );
+        }
     }
 }

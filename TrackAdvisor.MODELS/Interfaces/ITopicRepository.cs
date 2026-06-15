@@ -14,5 +14,6 @@ namespace TrackAdvisor.MODELS.Interfaces
         void Update(int id, string name, string description);
         void SoftDelete(int id);
         void Add(string name, string description);
+        void Restore(int id);
     }
 }
