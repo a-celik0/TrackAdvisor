@@ -28,7 +28,16 @@
                 <td>@(topic.IsDeleted ? "Deleted" : "Active")</td>
                 <td style="white-space: nowrap;">
                     <a href="/EditTopic?id=@topic.TopicID" class="btn btn-warning btn-sm me-2">Edit</a>
-                    <a href="/DeleteTopic?id=@topic.TopicID" class="btn btn-danger btn-sm">Delete</a>
+                    @if (topic.IsDeleted)
+                    {
+                        <!-- Show Restore button if topic is deleted -->
+                        <a href="/RestoreTopic?id=@topic.TopicID" class="btn btn-success btn-sm">Restore</a>
+                    }
+                    else
+                    {
+                        <!-- Show Delete button if topic is active -->
+                        <a href="/DeleteTopic?id=@topic.TopicID" class="btn btn-danger btn-sm">Delete</a>
+                    }
                 </td>
             </tr>
         }
