@@ -10,7 +10,7 @@ namespace TrackAdvisor.MODELS.Interfaces
     {
         bool Register(string email, string password);
         bool Login(string email, string password);
-
+        User GetUserById(int id);
         User GetUserByEmail(string email); //Get user by email to read UserID and Role
     }
 }

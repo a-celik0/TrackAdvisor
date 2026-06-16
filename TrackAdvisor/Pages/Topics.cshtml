@@ -1,14 +1,28 @@
 ﻿@page
 @model TrackAdvisor.WEB.Pages.TopicsModel
-
-<h1>Topics</h1>
-
-@foreach (var topic in Model.Topics)
-{
-    <div>
-        <a href="/TopicDetail/@topic.TopicID">
-            <h3>@topic.Name</h3>
-        </a>
-        <p>@topic.Description</p>
-    </div>
+@{
+    ViewData["Title"] = "Topics";
 }
+
+<h1 class="mb-4">Topics</h1>
+
+<div class="row">
+    @foreach (var topic in Model.Topics)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card h-100" style="border-color: #c084fc;">
+                <div class="card-body" style="background-color: white;">
+                    <h3 class="card-title">
+                        <a href="/TopicDetail/@topic.TopicID" style="color: rebeccapurple; text-decoration: none;">
+                            @topic.Name
+                        </a>
+                    </h3>
+                    <p class="card-text text-muted">@topic.Description</p>
+                    <a href="/TopicDetail/@topic.TopicID" class="btn btn-sm mt-2" style="background-color: #e9d5ff; color: rebeccapurple;">
+                        View Topic →
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

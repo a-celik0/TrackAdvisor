@@ -9,5 +9,6 @@ namespace TrackAdvisor.MODELS.Interfaces
 
         // Save a new user to the database
         bool Save(User user);
+        User FindById(int id);
     }
 }
