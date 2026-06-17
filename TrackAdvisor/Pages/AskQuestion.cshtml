@@ -1,21 +1,16 @@
 ﻿@page
 @model TrackAdvisor.WEB.Pages.AskQuestionModel
-
 <div class="container mt-4">
-
     <h2>Ask Question</h2>
-
     <form method="post">
         <input type="hidden" asp-for="TopicID" />
-
         <div>
             <label>Your question</label>
-            <textarea asp-for="Content" rows="5" class="form-control"></textarea>
+            <!-- required: form cannot be submitted empty -->
+            <!-- maxlength: limits input to 1000 characters -->
+            <textarea asp-for="Content" rows="5" class="form-control" required maxlength="1000"></textarea>
         </div>
-
         <br />
-
         <button type="submit">Submit</button>
     </form>
-
 </div>
