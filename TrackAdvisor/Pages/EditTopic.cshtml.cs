@@ -47,10 +47,14 @@ namespace TrackAdvisor.WEB.Pages
 
         public IActionResult OnPost()
         {
-            // Update the topic using raw SQL
-            _topicService.UpdateTopic(TopicID, Name, Description);
+            bool success = _topicService.UpdateTopic(TopicID, Name, Description);
 
-            // Go back to admin page
+            if (!success)
+            {
+                ModelState.AddModelError(string.Empty, "Name and description cannot be empty.");
+                return Page();
+            }
+
             return RedirectToPage("/Admin");
         }
     }

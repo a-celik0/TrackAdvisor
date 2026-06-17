@@ -30,18 +30,28 @@ namespace TrackAdvisor.BLL.Services
             return _topicRepository.FindByID(id);
         }
 
-        public void UpdateTopic(int id, string name, string description)
-        {
-            _topicRepository.Update(id, name, description);
-        }
-
         public void SoftDeleteTopic(int id)
         {
             _topicRepository.SoftDelete(id);
         }
-        public void AddTopic(string name, string description)
+        public bool AddTopic(string name, string description)
         {
+            // If name or description is empty, do not add
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(description))
+                return false;
+
             _topicRepository.Add(name, description);
+            return true;
+        }
+
+        public bool UpdateTopic(int id, string name, string description)
+        {
+            // If name or description is empty, do not update
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(description))
+                return false;
+
+            _topicRepository.Update(id, name, description);
+            return true;
         }
         public void RestoreTopic(int id)
         {

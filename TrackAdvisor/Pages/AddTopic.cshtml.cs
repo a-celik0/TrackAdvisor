@@ -43,7 +43,14 @@ namespace TrackAdvisor.WEB.Pages
 
         public IActionResult OnPost()
         {
-            _topicService.AddTopic(Name, Description);
+            bool success = _topicService.AddTopic(Name, Description);
+
+            if (!success)
+            {
+                ModelState.AddModelError(string.Empty, "Name and description cannot be empty.");
+                return Page();
+            }
+
             return RedirectToPage("/Admin");
         }
     }
