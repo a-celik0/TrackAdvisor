@@ -41,7 +41,7 @@ namespace TrackAdvisor.WEB.Pages
                 Response.Cookies.Append("UserID", user.UserID.ToString(), options);
                 Response.Cookies.Append("UserRole", user.Role, options);
 
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Topics");
             }
             else
             { 

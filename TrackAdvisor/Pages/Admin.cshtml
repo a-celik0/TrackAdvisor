@@ -31,12 +31,12 @@
                     @if (topic.IsDeleted)
                     {
                         <!-- Show Restore button if topic is deleted -->
-                        <a href="/RestoreTopic?id=@topic.TopicID" class="btn mt-3" style="background-color: hotpink; color: purple ;">Restore</a>
+                        <a href="/RestoreTopic?id=@topic.TopicID" class="btn mt-3" style="background-color: hotpink; color: rebeccapurple ;">Restore</a>
                     }
                     else
                     {
                         <!-- Show Delete button if topic is active -->
-                        <a href="/DeleteTopic?id=@topic.TopicID" class="btn mt-3" style="background-color: maroon; color: white;">Delete</a>
+                        <a href="/DeleteTopic?id=@topic.TopicID" class="btn mt-3" style="background-color: hotpink; color: black;">Delete</a>
                     }
                 </td>
             </tr>

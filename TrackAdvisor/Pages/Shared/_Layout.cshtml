@@ -26,7 +26,7 @@
             <div class="container">
                 <!-- İçeriği ortalamak için Bootstrap container -->
                 <!-- Logo / site adı. Tıklanınca ana sayfaya gider -->
-                <a class="navbar-brand fw-bold" asp-area="" asp-page="/Index">TrackAdvisor</a>
+                <a class="navbar-brand fw-bold" asp-area="" asp-page="/Topics">TrackAdvisor</a>
 
                 <!-- Mobil ekranlarda menüyü açıp kapatan buton -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
@@ -42,12 +42,7 @@
 
                         <!-- Home sayfasına gider -->
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-
-                        <!-- Topics sayfasına gider -->
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Topics">Topics</a>
+                            <a class="nav-link" asp-area="" asp-page="/Topics">Home</a>
                         </li>
 
                         @if (Context.Request.Cookies["UserRole"] == "Admin")
