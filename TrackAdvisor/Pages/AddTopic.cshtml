@@ -3,17 +3,18 @@
 @{
     ViewData["Title"] = "Add Topic";
 }
-
 <h1>Add Topic</h1>
-
 <form method="post">
     <div class="mb-3">
         <label class="form-label">Name</label>
-        <input type="text" class="form-control" asp-for="Name" />
+        <!-- required: form cannot be submitted empty -->
+        <!-- maxlength: limits input to 100 characters -->
+        <input type="text" class="form-control" asp-for="Name" required maxlength="100" />
     </div>
     <div class="mb-3">
         <label class="form-label">Description</label>
-        <textarea class="form-control" asp-for="Description"></textarea>
+        <!-- maxlength: limits input to 500 characters -->
+        <textarea class="form-control" asp-for="Description" required maxlength="500"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Add Topic</button>
     <a href="/Admin" class="btn btn-secondary">Cancel</a>

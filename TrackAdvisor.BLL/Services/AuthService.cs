@@ -68,5 +68,9 @@ namespace TrackAdvisor.BLL.Services
         {
             return _userRepository.FindByEmail(email);
         }
+        public User GetUserById(int id)
+        {
+            return _userRepository.FindById(id);
+        }
     }
 }

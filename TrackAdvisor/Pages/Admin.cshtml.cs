@@ -2,35 +2,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TrackAdvisor.BLL.Services;
 using TrackAdvisor.MODELS;
+using TrackAdvisor.MODELS.Interfaces;
 
 namespace TrackAdvisor.WEB.Pages
 {
     public class AdminModel : PageModel
     {
         private readonly TopicService _topicService;
+        private readonly IAuthService _authService; // Yeni eklendi
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
 
-        public AdminModel(TopicService topicService)
+        // Constructor'a IAuthService de eklendi
+        public AdminModel(TopicService topicService, IAuthService authService)
         {
             _topicService = topicService;
+            _authService = authService;
         }
 
         public IActionResult OnGet()
         {
-            // Check if user is logged in
+            // Get UserID from cookie
             if (Request.Cookies["UserID"] == null)
             {
                 return RedirectToPage("/Login");
             }
 
-            // Check if user is admin
-            if (Request.Cookies["UserRole"] != "Admin")
+            var userId = int.Parse(Request.Cookies["UserID"]);
+
+            // Check the real role from the database, not from the cookie
+            var user = _authService.GetUserById(userId);
+
+            if (user == null || user.Role != "Admin")
             {
                 return RedirectToPage("/Index");
             }
 
-            // Get all topics including deleted ones
             Topics = _topicService.GetAllTopicsIncludingDeleted();
             return Page();
         }

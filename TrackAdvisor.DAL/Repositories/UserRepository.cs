@@ -36,5 +36,9 @@ namespace TrackAdvisor.DAL.Repositories
 
             return true;
         }
+        public User FindById(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.UserID == id);
+        }
     }
 }

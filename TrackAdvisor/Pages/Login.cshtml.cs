@@ -44,7 +44,7 @@ namespace TrackAdvisor.WEB.Pages
                 return RedirectToPage("/Index");
             }
             else
-            {
+            { 
                 Message = "Invalid email or password.";
                 return Page();
             }

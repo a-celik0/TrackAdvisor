@@ -22,5 +22,9 @@ namespace TrackAdvisor.Tests
             _users.Add(user);
             return true;
         }
+        public User FindById(int id)
+        {
+            return _users.FirstOrDefault(u => u.UserID == id);
+        }
     }
 }
